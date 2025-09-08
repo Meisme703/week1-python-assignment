@@ -1,49 +1,42 @@
-def add(x, y):
-    return x + y
+Step 1: Define operation functions
+DEFINE function add(a, b)
+    RETURN a + b
 
-def subtract(x, y):
-    return x - y
+DEFINE function subtract(a, b)
+    RETURN a - b
 
-def multiply(x, y):
-    return x * y
+DEFINE function multiply(a, b)
+    RETURN a * b
 
-def divide(x, y):
-    if y == 0:
-        return "Error! Division by zero."
-    return x / y
+DEFINE function divide(a, b)
+    Ensure that b is not zero when calling
+    IF b == 0 THEN
+        PRINT "Error: Division by zero is not allowed."
+        RETURN None
+    END IF
+    RETURN a / b
+Step 2: Map operations to functions in a dictionary
+SET operations = { "+": add, "-": subtract, "*": multiply, "/": divide }
 
-def main():
-    print("Select operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
+Step 3: Get user input
+PRINT "Enter the first number:"
+SET first_number = USER_INPUT
+PRINT "Enter the second number:"
+SET second_number = USER_INPUT
+PRINT "Enter the operation (+, -, *, /):"
+SET operation = USER_INPUT
 
-    while True:
-        choice = input("Enter choice (1/2/3/4) or 'q' to quit: ")
+Step 4: Perform the operation using the dictionary
+IF operation IN operations THEN
+    SET result = operations[operation](first_number, second_number)
+    
+    Check for None result (in case of division by zero)
+    IF result IS NOT None THEN
+        Step 5: Display the result
+        PRINT "The result of", first_number, operation, second_number, "is", result
+    END IF
+ELSE
+    PRINT "Error: Invalid operation."
+END IF
 
-        if choice in ['1', '2', '3', '4']:
-            try:
-                num1 = float(input("Enter first number: "))
-                num2 = float(input("Enter second number: "))
-            except ValueError:
-                print("Invalid input! Please enter numeric values.")
-                continue
 
-            if choice == '1':
-                print(f"{num1} + {num2} = {add(num1, num2)}")
-            elif choice == '2':
-                print(f"{num1} - {num2} = {subtract(num1, num2)}")
-            elif choice == '3':
-                print(f"{num1} * {num2} = {multiply(num1, num2)}")
-            elif choice == '4':
-                result = divide(num1, num2)
-                print(f"{num1} / {num2} = {result}")
-        elif choice.lower() == 'q':
-            print("Exiting the calculator. Goodbye!")
-            break
-        else:
-            print("Invalid input! Please select a valid operation.")
-
-if __name__ == "__main__":
-    main()
